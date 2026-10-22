@@ -1,0 +1,17 @@
+{
+  "name": "Playwright",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.5"
+  },
+  "scripts": {
+    "test": "npx playwright test",
+    "report": "npx playwright show-report",
+    "ui": "npx playwright test --ui",
+    "debug": "npx playwright test --debug",
+    "smoke": "npx playwright test --grep @smoke"
+  }
+}
