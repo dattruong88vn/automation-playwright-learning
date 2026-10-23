@@ -10,6 +10,7 @@ import LoginPage from '@/pages/login';
 import {
     expectCartPage,
     expectCheckoutStepOnePage,
+    expectCheckoutStepTwoPage,
     expectInventoryPage,
 } from '@/utils/route';
 
@@ -28,6 +29,7 @@ interface SessionFixtures {
     inventoryPageSignedIn: InventoryPage;
     emptyCartPage: CartPage;
     defaultCheckoutInfoPage: CheckoutInfoPage;
+    defaultCheckoutOverviewPage: CheckoutOverviewPage;
 }
 
 export const test = base.extend<PageFixtures & SessionFixtures>({
@@ -69,6 +71,15 @@ export const test = base.extend<PageFixtures & SessionFixtures>({
         await emptyCartPage.clickCheckoutBtn();
         await expectCheckoutStepOnePage(page);
         await use(checkoutInfoPage);
+    },
+    defaultCheckoutOverviewPage: async (
+        { page, defaultCheckoutInfoPage, checkoutOverviewPage },
+        use,
+    ) => {
+        await defaultCheckoutInfoPage.fillInformation();
+        await defaultCheckoutInfoPage.clickContinueBtn();
+        await expectCheckoutStepTwoPage(page);
+        await use(checkoutOverviewPage);
     },
 });
 

@@ -76,7 +76,6 @@ test.describe('add products to cart and navigate cart page', () => {
         const boltTShirtProduct = cartPage.getProductByName(BOLT_TSHIRT.NAME);
         await boltTShirtProduct.removeBtn.click();
 
-        await expect(cartPage.cartItems).toHaveCount(1);
         await expect(cartPage.cartItemNames).toHaveText([BACKPACK.NAME]);
 
         const backpackProduct = cartPage.getProductByName(BACKPACK.NAME);

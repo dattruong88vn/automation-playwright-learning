@@ -43,8 +43,7 @@ test('cart badge updates when products are added and removed', async ({
 }) => {
     // add 2 products to cart
     for (const productName of [BACKPACK.NAME, BIKE_LIGHT.NAME]) {
-        const item = inventoryPageSignedIn.getProductByName(productName);
-        await item.clickAddToCartBtn();
+        await inventoryPageSignedIn.addProductToCart(productName);
     }
     await expect(inventoryPageSignedIn.cartCount).toHaveText('2');
 
