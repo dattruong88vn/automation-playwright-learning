@@ -48,6 +48,10 @@ class InventoryPage {
     async clickCartLink() {
         await this.cartLink.click();
     }
+
+    async goTo() {
+        this.page.goto('/inventory.html');
+    }
 }
 
 export default InventoryPage;

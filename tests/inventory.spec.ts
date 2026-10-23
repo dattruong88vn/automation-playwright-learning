@@ -1,5 +1,3 @@
-import { expect, test } from '@/tests/fixtures';
-
 import {
     PRODUCTS,
     SORT_NAME_ASC,
@@ -7,6 +5,8 @@ import {
     SORT_PRICE_ASC,
     SORT_PRICE_DESC,
 } from '@/utils/constants';
+
+import { expect, test } from '@/tests/fixtures';
 
 const { BACKPACK, BIKE_LIGHT, ONESIE, BOLT_TSHIRT, FLEECE_JACKET, RED_TSHIRT } =
     PRODUCTS;

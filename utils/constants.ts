@@ -1,3 +1,5 @@
+export const AUTH_FILE = `${process.cwd()}/.auth/user.json`;
+
 export const DEFAULT_URL = 'https://www.saucedemo.com/';
 export const DEFAULT_USERNAME = 'standard_user';
 export const DEFAULT_PASSWORD = 'secret_sauce';

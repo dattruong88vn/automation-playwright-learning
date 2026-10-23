@@ -54,9 +54,8 @@ export const test = base.extend<PageFixtures & SessionFixtures>({
     },
 
     // StateFixtures
-    inventoryPageSignedIn: async ({ page, loginPage, inventoryPage }, use) => {
-        await loginPage.goTo();
-        await loginPage.login();
+    inventoryPageSignedIn: async ({ page, inventoryPage }, use) => {
+        await inventoryPage.goTo();
         await expectInventoryPage(page);
         await use(inventoryPage);
     },

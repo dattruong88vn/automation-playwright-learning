@@ -1,5 +1,3 @@
-import { expect, test } from '@/tests/fixtures';
-
 import { PRODUCTS } from '@/utils/constants';
 import {
     expectCartPage,
@@ -8,6 +6,8 @@ import {
     expectCheckoutStepTwoPage,
     expectInventoryPage,
 } from '@/utils/route';
+
+import { expect, test } from '@/tests/fixtures';
 
 test.describe('display correct title, labels, buttons and navigate', () => {
     test('show title and labels', async ({ emptyCartCheckoutOverviewPage }) => {

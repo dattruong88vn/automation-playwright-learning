@@ -1,11 +1,11 @@
-import { expect, test } from '@/tests/fixtures';
-
 import { PRODUCTS } from '@/utils/constants';
 import {
     expectCartPage,
     expectCheckoutStepOnePage,
     expectInventoryPage,
 } from '@/utils/route';
+
+import { expect, test } from '@/tests/fixtures';
 
 const { BACKPACK, BOLT_TSHIRT } = PRODUCTS;
 

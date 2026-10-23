@@ -7,7 +7,7 @@ import {
     INVENTORY_ITEM_NAME,
     INVENTORY_ITEM_PRICE,
     REMOVE,
-} from '../../utils/constants';
+} from '@/utils/constants';
 
 class ProductItem {
     name: Locator;

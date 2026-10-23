@@ -1,5 +1,3 @@
-import { expect, test } from '@/tests/fixtures';
-
 import {
     DOWNLOAD,
     PRODUCTS,
@@ -12,6 +10,8 @@ import {
     expectCheckoutStepTwoPage,
     expectInventoryPage,
 } from '@/utils/route';
+
+import { expect, test } from '@/tests/fixtures';
 
 const { BACKPACK } = PRODUCTS;
 

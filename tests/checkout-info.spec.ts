@@ -1,5 +1,3 @@
-import { expect, test } from '@/tests/fixtures';
-
 import {
     CHECKOUT_FIRST_NAME,
     CHECKOUT_LAST_NAME,
@@ -11,6 +9,8 @@ import {
     expectCheckoutStepOnePage,
     expectCheckoutStepTwoPage,
 } from '@/utils/route';
+
+import { expect, test } from '@/tests/fixtures';
 
 test('display title and input fields', async ({
     emptyCartCheckoutInfoPage,
