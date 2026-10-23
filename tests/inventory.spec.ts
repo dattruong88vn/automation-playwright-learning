@@ -1,8 +1,9 @@
-import { test, expect } from '@playwright/test';
-import { expectInventoryPage } from '../utils/route';
-import * as CONSTANT from '../utils/constants';
-import LoginPage from '../pages/login';
+import { expect,test } from '@playwright/test';
+
 import InventoryPage from '../pages/inventory';
+import LoginPage from '../pages/login';
+import * as CONSTANT from '../utils/constants';
+import { expectInventoryPage } from '../utils/route';
 
 let loginPage: LoginPage;
 let inventoryPage: InventoryPage;

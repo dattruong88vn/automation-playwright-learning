@@ -1,22 +1,22 @@
-import { test, expect } from '@playwright/test';
+import { expect,test } from '@playwright/test';
+
+import CartPage from '@/pages/cart';
+import CheckoutInfoPage from '@/pages/checkout-info-page';
+import InventoryPage from '@/pages/inventory';
+import LoginPage from '@/pages/login';
 
 import {
     CHECKOUT_FIRST_NAME,
     CHECKOUT_LAST_NAME,
     PRODUCTS,
 } from '@/utils/constants';
+import { CHECKOUT_POSTAL_CODE } from '@/utils/constants';
 import {
     expectCartPage,
     expectCheckoutStepOnePage,
     expectCheckoutStepTwoPage,
     expectInventoryPage,
 } from '@/utils/route';
-import LoginPage from '@/pages/login';
-import InventoryPage from '@/pages/inventory';
-import CheckoutInfoPage from '@/pages/checkout-info-page';
-import CartPage from '@/pages/cart';
-import CheckoutOverviewPage from '@/pages/checkout-overview-page';
-import { CHECKOUT_POSTAL_CODE } from '@/utils/constants';
 
 let loginPage: LoginPage;
 let inventoryPage: InventoryPage;

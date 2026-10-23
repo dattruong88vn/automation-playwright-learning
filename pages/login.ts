@@ -1,4 +1,5 @@
 import { Locator, Page } from '@playwright/test';
+
 import {
     DEFAULT_PASSWORD,
     DEFAULT_USERNAME,
@@ -6,7 +7,6 @@ import {
     TITLE,
     USERNAME_FIELD_PLACEHOLDER,
 } from '@/utils/constants';
-import CartPage from '@/pages/cart';
 
 class LoginPage {
     userNameField: Locator;

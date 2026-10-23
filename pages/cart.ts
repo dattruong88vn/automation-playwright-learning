@@ -1,5 +1,7 @@
 import { Locator, Page } from '@playwright/test';
+
 import ProductItem from '@/pages/components/product-item';
+
 import {
     CHECKOUT,
     CONTINUE_SHOPPING,

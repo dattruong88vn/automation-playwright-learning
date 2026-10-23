@@ -1,9 +1,12 @@
+import { expect,test } from '@playwright/test';
+
 import CartPage from '@/pages/cart';
 import CheckoutCompletePage from '@/pages/checkout-complete';
 import CheckoutInfoPage from '@/pages/checkout-info-page';
 import CheckoutOverviewPage from '@/pages/checkout-overview-page';
 import InventoryPage from '@/pages/inventory';
 import LoginPage from '@/pages/login';
+
 import {
     DOWNLOAD,
     PRODUCTS,
@@ -16,7 +19,6 @@ import {
     expectCheckoutStepTwoPage,
     expectInventoryPage,
 } from '@/utils/route';
-import { test, expect } from '@playwright/test';
 
 let loginPage: LoginPage;
 let inventoryPage: InventoryPage;

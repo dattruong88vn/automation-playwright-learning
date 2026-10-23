@@ -1,4 +1,5 @@
 import { Locator, Page } from '@playwright/test';
+
 import {
     CANCEL,
     CHECKOUT_FIRST_NAME,

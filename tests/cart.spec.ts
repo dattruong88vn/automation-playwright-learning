@@ -1,13 +1,14 @@
 import { expect, test } from '@playwright/test';
+
+import CartPage from '../pages/cart';
+import InventoryPage from '../pages/inventory';
+import LoginPage from '../pages/login';
+import { PRODUCTS } from '../utils/constants';
 import {
     expectCartPage,
     expectCheckoutStepOnePage,
     expectInventoryPage,
 } from '../utils/route';
-import LoginPage from '../pages/login';
-import InventoryPage from '../pages/inventory';
-import CartPage from '../pages/cart';
-import { PRODUCTS } from '../utils/constants';
 
 const { BACKPACK, BOLT_TSHIRT } = PRODUCTS;
 

@@ -1,6 +1,7 @@
 import { Locator, Page } from "@playwright/test";
-import ProductItem from "./components/product-item";
+
 import { INVENTORY_ITEM, INVENTORY_ITEM_NAME } from "../utils/constants";
+import ProductItem from "./components/product-item";
 
 class InventoryPage {
     title: Locator;

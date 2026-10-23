@@ -1,5 +1,6 @@
-import { TITLE } from '@/utils/constants';
 import { Locator, Page } from '@playwright/test';
+
+import { TITLE } from '@/utils/constants';
 
 const COMPLETE_HEADER = 'complete-header';
 const COMPLETE_TEXT = 'complete-text';

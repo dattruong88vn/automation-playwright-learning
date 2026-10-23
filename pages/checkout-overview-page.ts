@@ -1,4 +1,5 @@
 import { Locator, Page } from '@playwright/test';
+
 import {
     CANCEL,
     FINISH,
@@ -9,6 +10,7 @@ import {
     INVENTORY_ITEM_QUANTITY,
     TITLE,
 } from '@/utils/constants';
+
 import ProductItem from './components/product-item';
 
 const PAYMENT_INFO_LABEL = 'payment-info-label';

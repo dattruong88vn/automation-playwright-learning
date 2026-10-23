@@ -1,4 +1,5 @@
-import { Page, expect } from '@playwright/test';
+import { expect,Page } from '@playwright/test';
+
 import { DEFAULT_URL } from './constants';
 
 export const expectLoginPage = async (page: Page) =>

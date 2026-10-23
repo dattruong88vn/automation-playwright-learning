@@ -1,4 +1,5 @@
 import { Locator, Page } from "@playwright/test";
+
 import { ADD_TO_CART, INVENTORY_ITEM, INVENTORY_ITEM_DESC, INVENTORY_ITEM_NAME, INVENTORY_ITEM_PRICE, REMOVE } from "../../utils/constants";
 
 class ProductItem {

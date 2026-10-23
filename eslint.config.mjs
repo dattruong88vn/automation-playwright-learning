@@ -1,4 +1,4 @@
-
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import unusedImports from 'eslint-plugin-unused-imports';
@@ -14,6 +14,7 @@ export default tseslint.config(
         files: ['**/*.{js,jsx,ts,tsx}'],
         plugins: {
             'unused-imports': unusedImports,
+            'simple-import-sort': simpleImportSort,
         },
         rules: {
             'no-unused-vars': 'off',
@@ -43,6 +44,43 @@ export default tseslint.config(
                     maxBOF: 0,
                 },
             ],
+            'simple-import-sort/imports': [
+                'error',
+                {
+                    groups: [
+                        // 1. External packages
+                        ['^node:', '^@?\\w'],
+
+                        // 2. Components
+                        ['^@/components(?:/|$)'],
+
+                        // 3. Pages
+                        ['^@/pages(?:/|$)'],
+
+                        // 4. Hooks
+                        ['^@/hooks(?:/|$)'],
+
+                        // 5. Services / API
+                        ['^@/(services|api)(?:/|$)'],
+
+                        // 6. Utils / Helpers
+                        ['^@/(utils|helpers)(?:/|$)'],
+
+                        // 7. Constants / Config
+                        ['^@/(constants|config)(?:/|$)'],
+
+                        // 8. Types
+                        ['^@/types(?:/|$)'],
+
+                        // 9. Các internal import khác
+                        ['^@/'],
+
+                        // 10. Relative imports
+                        ['^\\.'],
+                    ],
+                },
+            ],
+            'simple-import-sort/exports': 'error',
         },
     },
     prettier,
