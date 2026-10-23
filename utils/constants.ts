@@ -69,6 +69,9 @@ export const INVENTORY_ITEM_QUANTITY = 'item-quantity';
 export const INVENTORY_ITEM_PRICE = 'inventory-item-price';
 export const INVENTORY_ITEM_DESC = 'inventory-item-desc';
 
+// header
+export const SHOPPING_CART_BADGE = 'shopping-cart-badge';
+
 // button
 export const ADD_TO_CART = 'Add to cart';
 export const REMOVE = 'Remove';

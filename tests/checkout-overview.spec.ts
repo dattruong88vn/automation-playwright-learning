@@ -10,41 +10,41 @@ import {
 } from '@/utils/route';
 
 test.describe('display correct title, labels, buttons and navigate', () => {
-    test('show title and labels', async ({ defaultCheckoutOverviewPage }) => {
-        await expect(defaultCheckoutOverviewPage.title).toHaveText(
+    test('show title and labels', async ({ emptyCartCheckoutOverviewPage }) => {
+        await expect(emptyCartCheckoutOverviewPage.title).toHaveText(
             'Checkout: Overview',
         );
-        await expect(defaultCheckoutOverviewPage.paymentInfoLabel).toHaveText(
+        await expect(emptyCartCheckoutOverviewPage.paymentInfoLabel).toHaveText(
             'Payment Information:',
         );
-        await expect(defaultCheckoutOverviewPage.shippingInfoLabel).toHaveText(
-            'Shipping Information:',
-        );
-        await expect(defaultCheckoutOverviewPage.totalInfoLabel).toHaveText(
+        await expect(
+            emptyCartCheckoutOverviewPage.shippingInfoLabel,
+        ).toHaveText('Shipping Information:');
+        await expect(emptyCartCheckoutOverviewPage.totalInfoLabel).toHaveText(
             'Price Total',
         );
     });
 
     test('display cancel button and finish button', async ({
-        defaultCheckoutOverviewPage,
+        emptyCartCheckoutOverviewPage,
     }) => {
-        await expect(defaultCheckoutOverviewPage.cancelBtn).toBeVisible();
-        await expect(defaultCheckoutOverviewPage.finishBtn).toBeVisible();
+        await expect(emptyCartCheckoutOverviewPage.cancelBtn).toBeVisible();
+        await expect(emptyCartCheckoutOverviewPage.finishBtn).toBeVisible();
     });
 
     test('navigate to inventory page when click cancel button', async ({
         page,
-        defaultCheckoutOverviewPage,
+        emptyCartCheckoutOverviewPage,
     }) => {
-        await defaultCheckoutOverviewPage.clickCancelBtn();
+        await emptyCartCheckoutOverviewPage.clickCancelBtn();
         await expectInventoryPage(page);
     });
 
     test('navigate to checkout complete page when click finish button', async ({
         page,
-        defaultCheckoutOverviewPage,
+        emptyCartCheckoutOverviewPage,
     }) => {
-        await defaultCheckoutOverviewPage.clickFinishBtn();
+        await emptyCartCheckoutOverviewPage.clickFinishBtn();
         await expectCheckoutCompletePage(page);
     });
 });

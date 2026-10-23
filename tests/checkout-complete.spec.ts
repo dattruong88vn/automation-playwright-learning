@@ -1,11 +1,4 @@
-import { expect,test } from '@playwright/test';
-
-import CartPage from '@/pages/cart';
-import CheckoutCompletePage from '@/pages/checkout-complete';
-import CheckoutInfoPage from '@/pages/checkout-info-page';
-import CheckoutOverviewPage from '@/pages/checkout-overview-page';
-import InventoryPage from '@/pages/inventory';
-import LoginPage from '@/pages/login';
+import { expect, test } from '@/tests/fixtures';
 
 import {
     DOWNLOAD,
@@ -20,34 +13,60 @@ import {
     expectInventoryPage,
 } from '@/utils/route';
 
-let loginPage: LoginPage;
-let inventoryPage: InventoryPage;
-let cartPage: CartPage;
-let checkoutInfoPage: CheckoutInfoPage;
-let checkoutOverviewPage: CheckoutOverviewPage;
-let checkoutCompletePage: CheckoutCompletePage;
+const { BACKPACK } = PRODUCTS;
 
-const { BACKPACK, BIKE_LIGHT } = PRODUCTS;
+test.describe('display correct title, header, text, buttons and navigate', () => {
+    test('display title, header, text and buttons correctly', async ({
+        emptyCartCheckoutCompletePage,
+    }) => {
+        await expect(emptyCartCheckoutCompletePage.title).toHaveText(
+            'Checkout: Complete!',
+        );
+        await expect(emptyCartCheckoutCompletePage.completeHeader).toHaveText(
+            'Thank you for your order!',
+        );
+        await expect(emptyCartCheckoutCompletePage.completeText).toContainText(
+            'has been dispatched',
+        );
+        await expect(emptyCartCheckoutCompletePage.backHomeBtn).toBeVisible();
+        await expect(
+            emptyCartCheckoutCompletePage.generatePdfBtn,
+        ).toBeVisible();
+    });
 
-test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
-    inventoryPage = new InventoryPage(page);
-    cartPage = new CartPage(page);
-    checkoutInfoPage = new CheckoutInfoPage(page);
-    checkoutOverviewPage = new CheckoutOverviewPage(page);
-    checkoutCompletePage = new CheckoutCompletePage(page);
+    test('navigate to inventory page when click back to home button', async ({
+        page,
+        emptyCartCheckoutCompletePage,
+    }) => {
+        await emptyCartCheckoutCompletePage.clickBackHomeBtn();
+        await expectInventoryPage(page);
+    });
 
-    await loginPage.goTo();
-    await loginPage.login();
-    await expectInventoryPage(page);
+    test('download pdf when click generate pdf button', async ({
+        page,
+        emptyCartCheckoutCompletePage,
+    }) => {
+        const downloadPromise = page.waitForEvent(DOWNLOAD);
+        await emptyCartCheckoutCompletePage.clickGeneratePdfBtn();
+        const download = await downloadPromise;
+        expect(download.suggestedFilename()).toMatch(
+            REG_EXP_DOWNLOAD_FILE_NAME,
+        );
+        expect(await download.failure()).toBeNull();
+    });
+});
 
-    for (const productName of [BACKPACK.NAME, BIKE_LIGHT.NAME]) {
-        const item = inventoryPage.getProductByName(productName);
-        await item.addToCartBtn.click();
-    }
-    await expect(inventoryPage.cartCount).toHaveText('2');
-
-    await inventoryPage.clickCartLink();
+test('cart badge is cleared after finishing the order', async ({
+    page,
+    inventoryPageSignedIn,
+    cartPage,
+    checkoutInfoPage,
+    checkoutOverviewPage,
+    checkoutCompletePage,
+}) => {
+    await inventoryPageSignedIn.addProductToCart(BACKPACK.NAME);
+    await expect(inventoryPageSignedIn.cartCount).toHaveText('1');
+    await inventoryPageSignedIn.clickCartLink();
     await expectCartPage(page);
 
     await cartPage.clickCheckoutBtn();
@@ -59,36 +78,6 @@ test.beforeEach(async ({ page }) => {
 
     await checkoutOverviewPage.clickFinishBtn();
     await expectCheckoutCompletePage(page);
-});
 
-test('display title, header, text and buttons correctly', async ({ page }) => {
-    await expect(checkoutCompletePage.title).toHaveText('Checkout: Complete!');
-    await expect(checkoutCompletePage.completeHeader).toHaveText(
-        'Thank you for your order!',
-    );
-    await expect(checkoutCompletePage.completeText).toContainText(
-        'has been dispatched',
-    );
-    await expect(checkoutCompletePage.backHomeBtn).toBeVisible();
-    await expect(checkoutCompletePage.generatePdfBtn).toBeVisible();
-});
-
-test('navigate to inventory page when click back to home button', async ({
-    page,
-}) => {
-    await checkoutCompletePage.clickBackHomeBtn();
-    await expectInventoryPage(page);
-});
-
-test('clear cart when click back to home button', async ({ page }) => {
-    await checkoutCompletePage.clickBackHomeBtn();
-    await expect(inventoryPage.cartCount).toBeHidden();
-});
-
-test('download pdf when click generate pdf button', async ({ page }) => {
-    const downloadPromise = page.waitForEvent(DOWNLOAD);
-    await checkoutCompletePage.clickGeneratePdfBtn();
-    const download = await downloadPromise;
-    expect(download.suggestedFilename()).toMatch(REG_EXP_DOWNLOAD_FILE_NAME);
-    expect(await download.failure()).toBeNull();
+    await expect(checkoutCompletePage.cartCount).toBeHidden();
 });

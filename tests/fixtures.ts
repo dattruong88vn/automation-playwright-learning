@@ -9,13 +9,11 @@ import LoginPage from '@/pages/login';
 
 import {
     expectCartPage,
+    expectCheckoutCompletePage,
     expectCheckoutStepOnePage,
     expectCheckoutStepTwoPage,
     expectInventoryPage,
 } from '@/utils/route';
-
-import { PRODUCTS } from '../utils/constants';
-const { BACKPACK, BOLT_TSHIRT } = PRODUCTS;
 
 interface PageFixtures {
     loginPage: LoginPage;
@@ -28,13 +26,16 @@ interface PageFixtures {
 interface SessionFixtures {
     inventoryPageSignedIn: InventoryPage;
     emptyCartPage: CartPage;
-    defaultCheckoutInfoPage: CheckoutInfoPage;
-    defaultCheckoutOverviewPage: CheckoutOverviewPage;
+    emptyCartCheckoutInfoPage: CheckoutInfoPage;
+    emptyCartCheckoutOverviewPage: CheckoutOverviewPage;
+    emptyCartCheckoutCompletePage: CheckoutCompletePage;
 }
 
 export const test = base.extend<PageFixtures & SessionFixtures>({
     loginPage: async ({ page }, use) => {
+        console.log('before login use');
         await use(new LoginPage(page));
+        console.log('after login use');
     },
     inventoryPage: async ({ page }, use) => {
         await use(new InventoryPage(page));
@@ -52,7 +53,7 @@ export const test = base.extend<PageFixtures & SessionFixtures>({
         await use(new CheckoutCompletePage(page));
     },
 
-    // session
+    // StateFixtures
     inventoryPageSignedIn: async ({ page, loginPage, inventoryPage }, use) => {
         await loginPage.goTo();
         await loginPage.login();
@@ -64,7 +65,7 @@ export const test = base.extend<PageFixtures & SessionFixtures>({
         await expectCartPage(page);
         await use(cartPage);
     },
-    defaultCheckoutInfoPage: async (
+    emptyCartCheckoutInfoPage: async (
         { page, emptyCartPage, checkoutInfoPage },
         use,
     ) => {
@@ -72,14 +73,22 @@ export const test = base.extend<PageFixtures & SessionFixtures>({
         await expectCheckoutStepOnePage(page);
         await use(checkoutInfoPage);
     },
-    defaultCheckoutOverviewPage: async (
-        { page, defaultCheckoutInfoPage, checkoutOverviewPage },
+    emptyCartCheckoutOverviewPage: async (
+        { page, emptyCartCheckoutInfoPage, checkoutOverviewPage },
         use,
     ) => {
-        await defaultCheckoutInfoPage.fillInformation();
-        await defaultCheckoutInfoPage.clickContinueBtn();
+        await emptyCartCheckoutInfoPage.fillInformation();
+        await emptyCartCheckoutInfoPage.clickContinueBtn();
         await expectCheckoutStepTwoPage(page);
         await use(checkoutOverviewPage);
+    },
+    emptyCartCheckoutCompletePage: async (
+        { page, emptyCartCheckoutOverviewPage, checkoutCompletePage },
+        use,
+    ) => {
+        await emptyCartCheckoutOverviewPage.clickFinishBtn();
+        await expectCheckoutCompletePage(page);
+        await use(checkoutCompletePage);
     },
 });
 

@@ -12,36 +12,38 @@ import {
     expectCheckoutStepTwoPage,
 } from '@/utils/route';
 
-test('display title and input fields', async ({ defaultCheckoutInfoPage }) => {
-    await expect(defaultCheckoutInfoPage.title).toHaveText(
+test('display title and input fields', async ({
+    emptyCartCheckoutInfoPage,
+}) => {
+    await expect(emptyCartCheckoutInfoPage.title).toHaveText(
         'Checkout: Your Information',
     );
-    await expect(defaultCheckoutInfoPage.firstNameField).toBeVisible();
-    await expect(defaultCheckoutInfoPage.lastNameField).toBeVisible();
-    await expect(defaultCheckoutInfoPage.postalCodeField).toBeVisible();
+    await expect(emptyCartCheckoutInfoPage.firstNameField).toBeVisible();
+    await expect(emptyCartCheckoutInfoPage.lastNameField).toBeVisible();
+    await expect(emptyCartCheckoutInfoPage.postalCodeField).toBeVisible();
 });
 
 test('display cancel button and continue button', async ({
-    defaultCheckoutInfoPage,
+    emptyCartCheckoutInfoPage,
 }) => {
-    await expect(defaultCheckoutInfoPage.cancelBtn).toBeVisible();
-    await expect(defaultCheckoutInfoPage.continueBtn).toBeVisible();
+    await expect(emptyCartCheckoutInfoPage.cancelBtn).toBeVisible();
+    await expect(emptyCartCheckoutInfoPage.continueBtn).toBeVisible();
 });
 
 test('navigate to cart page when click cancel button', async ({
     page,
-    defaultCheckoutInfoPage,
+    emptyCartCheckoutInfoPage,
 }) => {
-    await defaultCheckoutInfoPage.clickCancelBtn();
+    await emptyCartCheckoutInfoPage.clickCancelBtn();
     await expectCartPage(page);
 });
 
 test('shows error when all fields are empty', async ({
     page,
-    defaultCheckoutInfoPage,
+    emptyCartCheckoutInfoPage,
 }) => {
-    await defaultCheckoutInfoPage.clickContinueBtn();
-    await expect(defaultCheckoutInfoPage.errorMessage).toHaveText(
+    await emptyCartCheckoutInfoPage.clickContinueBtn();
+    await expect(emptyCartCheckoutInfoPage.errorMessage).toHaveText(
         'Error: First Name is required',
     );
     await expectCheckoutStepOnePage(page);
@@ -49,13 +51,13 @@ test('shows error when all fields are empty', async ({
 
 test('shows error when zip code is empty', async ({
     page,
-    defaultCheckoutInfoPage,
+    emptyCartCheckoutInfoPage,
 }) => {
-    await defaultCheckoutInfoPage.fillFirstNameField(CHECKOUT_FIRST_NAME);
-    await defaultCheckoutInfoPage.fillLastNameField(CHECKOUT_LAST_NAME);
-    await defaultCheckoutInfoPage.clickContinueBtn();
+    await emptyCartCheckoutInfoPage.fillFirstNameField(CHECKOUT_FIRST_NAME);
+    await emptyCartCheckoutInfoPage.fillLastNameField(CHECKOUT_LAST_NAME);
+    await emptyCartCheckoutInfoPage.clickContinueBtn();
 
-    await expect(defaultCheckoutInfoPage.errorMessage).toHaveText(
+    await expect(emptyCartCheckoutInfoPage.errorMessage).toHaveText(
         'Error: Postal Code is required',
     );
     await expectCheckoutStepOnePage(page);
@@ -63,13 +65,13 @@ test('shows error when zip code is empty', async ({
 
 test('shows error when last name is empty', async ({
     page,
-    defaultCheckoutInfoPage,
+    emptyCartCheckoutInfoPage,
 }) => {
-    await defaultCheckoutInfoPage.fillFirstNameField(CHECKOUT_FIRST_NAME);
-    await defaultCheckoutInfoPage.fillPostalCodeField(CHECKOUT_POSTAL_CODE);
-    await defaultCheckoutInfoPage.clickContinueBtn();
+    await emptyCartCheckoutInfoPage.fillFirstNameField(CHECKOUT_FIRST_NAME);
+    await emptyCartCheckoutInfoPage.fillPostalCodeField(CHECKOUT_POSTAL_CODE);
+    await emptyCartCheckoutInfoPage.clickContinueBtn();
 
-    await expect(defaultCheckoutInfoPage.errorMessage).toHaveText(
+    await expect(emptyCartCheckoutInfoPage.errorMessage).toHaveText(
         'Error: Last Name is required',
     );
     await expectCheckoutStepOnePage(page);
@@ -77,13 +79,13 @@ test('shows error when last name is empty', async ({
 
 test('shows error when first name is empty', async ({
     page,
-    defaultCheckoutInfoPage,
+    emptyCartCheckoutInfoPage,
 }) => {
-    await defaultCheckoutInfoPage.fillLastNameField(CHECKOUT_LAST_NAME);
-    await defaultCheckoutInfoPage.fillPostalCodeField(CHECKOUT_POSTAL_CODE);
-    await defaultCheckoutInfoPage.clickContinueBtn();
+    await emptyCartCheckoutInfoPage.fillLastNameField(CHECKOUT_LAST_NAME);
+    await emptyCartCheckoutInfoPage.fillPostalCodeField(CHECKOUT_POSTAL_CODE);
+    await emptyCartCheckoutInfoPage.clickContinueBtn();
 
-    await expect(defaultCheckoutInfoPage.errorMessage).toHaveText(
+    await expect(emptyCartCheckoutInfoPage.errorMessage).toHaveText(
         'Error: First Name is required',
     );
     await expectCheckoutStepOnePage(page);

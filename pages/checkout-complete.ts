@@ -1,6 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 
-import { TITLE } from '@/utils/constants';
+import { SHOPPING_CART_BADGE, TITLE } from '@/utils/constants';
 
 const COMPLETE_HEADER = 'complete-header';
 const COMPLETE_TEXT = 'complete-text';
@@ -13,6 +13,7 @@ class CheckoutCompletePage {
     completeText: Locator;
     backHomeBtn: Locator;
     generatePdfBtn: Locator;
+    cartCount: Locator;
 
     constructor(private page: Page) {
         this.title = page.getByTestId(TITLE);
@@ -22,6 +23,7 @@ class CheckoutCompletePage {
         this.generatePdfBtn = page.getByRole('button', {
             name: GENERATE_PDF_ORDER,
         });
+        this.cartCount = page.getByTestId(SHOPPING_CART_BADGE);
     }
 
     async clickBackHomeBtn() {
