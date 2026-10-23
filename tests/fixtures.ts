@@ -7,7 +7,11 @@ import CheckoutOverviewPage from '@/pages/checkout-overview-page';
 import InventoryPage from '@/pages/inventory';
 import LoginPage from '@/pages/login';
 
-import { expectCartPage, expectInventoryPage } from '@/utils/route';
+import {
+    expectCartPage,
+    expectCheckoutStepOnePage,
+    expectInventoryPage,
+} from '@/utils/route';
 
 import { PRODUCTS } from '../utils/constants';
 const { BACKPACK, BOLT_TSHIRT } = PRODUCTS;
@@ -23,6 +27,7 @@ interface PageFixtures {
 interface SessionFixtures {
     inventoryPageSignedIn: InventoryPage;
     emptyCartPage: CartPage;
+    defaultCheckoutInfoPage: CheckoutInfoPage;
 }
 
 export const test = base.extend<PageFixtures & SessionFixtures>({
@@ -56,6 +61,14 @@ export const test = base.extend<PageFixtures & SessionFixtures>({
         await inventoryPageSignedIn.clickCartLink();
         await expectCartPage(page);
         await use(cartPage);
+    },
+    defaultCheckoutInfoPage: async (
+        { page, emptyCartPage, checkoutInfoPage },
+        use,
+    ) => {
+        await emptyCartPage.clickCheckoutBtn();
+        await expectCheckoutStepOnePage(page);
+        await use(checkoutInfoPage);
     },
 });
 
