@@ -1,65 +1,46 @@
-import { expect, test } from '@playwright/test';
+// import { expect, test } from '@playwright/test';
+import { expect, test } from '@/tests/fixtures';
 
-import CartPage from '../pages/cart';
-import InventoryPage from '../pages/inventory';
-import LoginPage from '../pages/login';
-import { PRODUCTS } from '../utils/constants';
+import { PRODUCTS } from '@/utils/constants';
 import {
     expectCartPage,
     expectCheckoutStepOnePage,
     expectInventoryPage,
-} from '../utils/route';
+} from '@/utils/route';
 
 const { BACKPACK, BOLT_TSHIRT } = PRODUCTS;
 
-let loginPage: LoginPage;
-let inventoryPage: InventoryPage;
-let cartPage: CartPage;
-
-test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
-    inventoryPage = new InventoryPage(page);
-    cartPage = new CartPage(page);
-
-    await loginPage.goTo();
-    await loginPage.login();
-    await expectInventoryPage(page);
+test('display cart title', async ({ emptyCartPage }) => {
+    await expect(emptyCartPage.title).toHaveText('Your Cart');
 });
 
-test('display cart title', async ({ page }) => {
-    await inventoryPage.clickCartLink();
-    await expectCartPage(page);
-    await expect(cartPage.title).toHaveText('Your Cart');
-});
-
-test('no product in cart', async ({ page }) => {
-    await inventoryPage.clickCartLink();
-    await expectCartPage(page);
-    await expect(cartPage.cartItems).toHaveCount(0);
+test('no product in cart', async ({ emptyCartPage }) => {
+    await expect(emptyCartPage.cartItems).toHaveCount(0);
 });
 
 test('redirect to checkout page after click checkout button', async ({
     page,
+    emptyCartPage,
 }) => {
-    await inventoryPage.clickCartLink();
-    await expectCartPage(page);
-    await cartPage.clickCheckoutBtn();
+    await emptyCartPage.clickCheckoutBtn();
     await expectCheckoutStepOnePage(page);
 });
 
 test('redirect to inventory page after click back to shopping button', async ({
     page,
+    emptyCartPage,
 }) => {
-    await inventoryPage.clickCartLink();
-    await expectCartPage(page);
-
-    await cartPage.clickBackToShopBtn();
+    await emptyCartPage.clickBackToShopBtn();
     await expectInventoryPage(page);
 });
 
-test('display 1 added product', async ({ page }) => {
-    await inventoryPage.addProductToCart(BOLT_TSHIRT.NAME);
-    await inventoryPage.clickCartLink();
+test('display 1 added product', async ({
+    page,
+    inventoryPageSignedIn,
+    cartPage,
+}) => {
+    await inventoryPageSignedIn.addProductToCart(BOLT_TSHIRT.NAME);
+    await inventoryPageSignedIn.clickCartLink();
     await expectCartPage(page);
 
     await expect(cartPage.cartItems).toHaveCount(1);
@@ -72,22 +53,22 @@ test('display 1 added product', async ({ page }) => {
 });
 
 test.describe('add products to cart and navigate cart page', () => {
-    test.beforeEach(async ({ page }) => {
-        await inventoryPage.addProductToCart(BOLT_TSHIRT.NAME);
-        await inventoryPage.addProductToCart(BACKPACK.NAME);
+    test.beforeEach(async ({ page, inventoryPageSignedIn }) => {
+        await inventoryPageSignedIn.addProductToCart(BOLT_TSHIRT.NAME);
+        await inventoryPageSignedIn.addProductToCart(BACKPACK.NAME);
 
-        await inventoryPage.clickCartLink();
+        await inventoryPageSignedIn.clickCartLink();
         await expectCartPage(page);
     });
 
-    test('display 2 added products', async ({ page }) => {
+    test('display 2 added products', async ({ cartPage }) => {
         await expect(cartPage.cartItemNames).toHaveText([
             BOLT_TSHIRT.NAME,
             BACKPACK.NAME,
         ]);
     });
 
-    test('removes products from the cart one by one', async ({ page }) => {
+    test('removes products from the cart one by one', async ({ cartPage }) => {
         await expect(cartPage.cartItemNames).toHaveText([
             BOLT_TSHIRT.NAME,
             BACKPACK.NAME,
