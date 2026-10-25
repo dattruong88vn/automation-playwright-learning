@@ -33,9 +33,7 @@ interface SessionFixtures {
 
 export const test = base.extend<PageFixtures & SessionFixtures>({
     loginPage: async ({ page }, use) => {
-        console.log('before login use');
         await use(new LoginPage(page));
-        console.log('after login use');
     },
     inventoryPage: async ({ page }, use) => {
         await use(new InventoryPage(page));
