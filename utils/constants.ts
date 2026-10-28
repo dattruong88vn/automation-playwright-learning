@@ -80,3 +80,6 @@ export const CONTINUE_SHOPPING = 'Continue Shopping';
 export const CONTINUE = 'Continue';
 export const CANCEL = 'Cancel';
 export const FINISH = 'Finish';
+
+// file
+export const AUTH_FILE = `${process.cwd()}/playwright/.auth/user.json`;

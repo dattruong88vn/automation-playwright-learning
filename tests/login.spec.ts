@@ -5,9 +5,11 @@ import {
     PERFORMANCE_GLITCH_USERNAME,
     WRONG_PASSWORD,
 } from '@/utils/constants';
-import { expectInventoryPage,expectLoginPage } from '@/utils/route';
+import { expectInventoryPage, expectLoginPage } from '@/utils/route';
 
-import { expect,test } from '@/tests/fixtures';
+import { expect, test } from '@/tests/fixtures';
+
+test.use({ storageState: { cookies: [], origins: [] } });
 
 test('login page has correct url and title', async ({ page, loginPage }) => {
     await loginPage.goTo();
