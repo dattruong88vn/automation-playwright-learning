@@ -1,8 +1,6 @@
 import { requireEnv } from '@/utils/env';
 
-export const BASE_URL = 'BASE_URL';
-
-export const DEFAULT_URL = requireEnv(BASE_URL);
+export const DEFAULT_URL = requireEnv('BASE_URL');
 export const DEFAULT_USERNAME = requireEnv('USERNAME');
 export const DEFAULT_PASSWORD = requireEnv('PASSWORD');
 export const USERNAME_FIELD_PLACEHOLDER = 'Username';
