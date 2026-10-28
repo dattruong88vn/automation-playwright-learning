@@ -35,19 +35,13 @@ export default tseslint.config(
                 },
             ],
 
-            // Giới hạn dòng trắng liên tiếp
-            'no-multiple-empty-lines': [
-                'error',
-                {
-                    max: 1,
-                    maxEOF: 0,
-                    maxBOF: 0,
-                },
-            ],
             'simple-import-sort/imports': [
                 'error',
                 {
                     groups: [
+                        // 0. Side-effect imports (dotenv/config, polyfills...)
+                        ['^\\u0000'],
+
                         // 1. External packages
                         ['^node:', '^@?\\w'],
 

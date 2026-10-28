@@ -1,6 +1,10 @@
-export const DEFAULT_URL = 'https://www.saucedemo.com/';
-export const DEFAULT_USERNAME = 'standard_user';
-export const DEFAULT_PASSWORD = 'secret_sauce';
+import { requireEnv } from '@/utils/env';
+
+export const BASE_URL = 'BASE_URL';
+
+export const DEFAULT_URL = requireEnv(BASE_URL);
+export const DEFAULT_USERNAME = requireEnv('USERNAME');
+export const DEFAULT_PASSWORD = requireEnv('PASSWORD');
 export const USERNAME_FIELD_PLACEHOLDER = 'Username';
 export const PASSWORD_FIELD_PLACEHOLDER = 'Password';
 

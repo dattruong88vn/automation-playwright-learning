@@ -21,5 +21,8 @@
     "ui": "npx playwright test --ui",
     "debug": "npx playwright test --debug",
     "smoke": "npx playwright test --grep @smoke"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.9"
   }
 }
